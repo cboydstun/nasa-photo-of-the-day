@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios'
+import styled from 'styled-components';
+
 import "./App.css";
 import PhotoCard from './components/PhotoCard'
 
@@ -10,7 +12,7 @@ function App() {
 
   useEffect(() => {
     // Make a request for a user with a given ID
-    axios.get(`https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=${date}`)
+    axios.get(`https://api.nasa.gov/planetary/apod?api_key=TzkL1Z80xN72XdKRbv6UiTtS3kDgm0eyCPgziLlf&date=${date}`)
       .then( res =>{
         // handle success
         console.log(res);
@@ -26,6 +28,8 @@ function App() {
 
   return (
     <div className="App">
+
+      
 
 
       {cardState
