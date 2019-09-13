@@ -1,13 +1,50 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+import axios from 'axios'
+import styled from 'styled-components';
+
 import "./App.css";
+import PhotoCard from './components/PhotoCard'
 
 function App() {
+
+  const [cardState, cardSetter] = useState({})
+  const [date, dateSetter] = useState('2019-09-11')
+
+  useEffect(() => {
+    // Make a request for a user with a given ID
+    axios.get(`https://api.nasa.gov/planetary/apod?api_key=TzkL1Z80xN72XdKRbv6UiTtS3kDgm0eyCPgziLlf&date=${date}`)
+      .then( res =>{
+        // handle success
+        console.log(res);
+        cardSetter(res.data);
+      }
+      )
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+  },[date])
+
+
   return (
     <div className="App">
-      <p>
-        Read through the instructions in the README.md file to build your NASA
-        app! Have fun 🚀!
-      </p>
+
+      
+
+
+      {cardState
+       ? <PhotoCard 
+          title={cardState.title}
+          url={cardState.url}
+          explanation={cardState.explanation}
+          date={cardState.date}
+        /> : <div>loading</div>
+     }
+     <form>
+       <input onChange={(event) => dateSetter(event.target.value)} type={"date"}>
+
+       </input>
+     </form>
     </div>
   );
 }
